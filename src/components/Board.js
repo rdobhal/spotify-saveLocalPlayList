@@ -1,6 +1,12 @@
 import React from "react";
+import {
+  setLocalPlayList,
+  updateFeaturedPlayList,
+} from "../redux/actions/playListActions";
+import { useDispatch } from "react-redux";
 
 const Board = (props) => {
+  const dispatch = useDispatch();
   const drop = (e) => {
     e.preventDefault();
     const card_id = e.dataTransfer.getData("card_id");
@@ -11,7 +17,8 @@ const Board = (props) => {
       name: card.innerText,
       imageURL: card.getElementsByTagName("img")[0].src,
     };
-    props.onChange(newValue);
+    dispatch(setLocalPlayList(newValue));
+    dispatch(updateFeaturedPlayList(newValue));
   };
   const dragOver = (e) => {
     e.preventDefault();
